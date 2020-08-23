@@ -57,8 +57,9 @@ def temp_monthly():
     return jsonify(temps=temps)   
 
 @app.route("/api/v1.0/temp/<start>")
+@app.route("/api/v1.0/temp/<start>/<end>")
 
-def stats1(start=None):
+def stats():
     sel = [func.min(Measurement.tobs), func.avg(Measurement.tobs),
   func.max(Measurement.tobs)]
 
@@ -69,8 +70,8 @@ def stats1(start=None):
     temps = list(np.ravel(results))
     return jsonify(temps=temps)
 
-@app.route("/api/v1.0/temp/<start>/<end>")
-def stats2(start=None, end=None):
+
+def stats(start=None, end=None):
     sel = [func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)]           
 
     if not end: 
